@@ -1,0 +1,21 @@
+A small class for registering ajax calls and fire events when they are complete. Attempts to mimic the behavior of jQuery's ajaxStart and ajaxStop methods when jQuery is not available or your ajax calls are not registered by jQuery.
+
+ajaxtrack = new ajaxTrack();
+
+ajaxtrack.start_callback = function() {
+  alert('We will now begin contact with the internet');
+};
+ajaxtrack.stop_callback = function() {
+  alert('All calls have completed');
+};
+
+var fb_hash = ajaxtrack.register_call(); //creates a new item in the 'active' object with a unique id
+//logout with facebook api
+FB.logout(function(response) {
+  ajaxTrack.complete_call(fb_hash); //remove item from 'active' object
+});
+var tw_hash = ajaxtrack.register_call(); //creates a new item in the 'active' object with a unique id
+//logout with twitter api
+TW.logout(function(response) {
+  ajaxTrack.complete_call(tw_hash); //remove item from 'active' object
+});
